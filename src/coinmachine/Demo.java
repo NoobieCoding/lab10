@@ -63,7 +63,7 @@ public class Demo {
 		Demo demo = new Demo();
 		
 		CoinObserver coinObserver = new CoinObserver();
-		
+
 		CoinMachineUI coinMachineUIObserver  = new CoinMachineUI(machine);
 		coinMachineUIObserver.run();
 		

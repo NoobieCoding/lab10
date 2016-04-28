@@ -1,5 +1,4 @@
 package coinmachine;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +8,14 @@ import java.util.Observer;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Graphic user interface used to display the current balance in the coin machine,
+ * display the amount of space left for inserting more coin.
+ * The buttons can be put to add a coin to the coin machine.
+ * Observer of CoinMachine.
+ * @author Nuttapong Rojanavanich
+ *
+ */
 public class CoinMachineUI extends JFrame implements Observer {
 
 	private CoinMachine coinMachine;
@@ -19,36 +26,47 @@ public class CoinMachineUI extends JFrame implements Observer {
 	private ImageIcon oneBahtPic, fiveBahtPic, tenBahtPic;
 	private JButton oneBahtButton, fiveBahtButton, tenBahtButton;
 	private URL oneBahtURL, fiveBahtURL, tenBahtURL;
-
+	
+	/**
+	 *Constructor with CoinMachine object as an argument. 
+	 * @param coinMachine is a coin machine that store coins.
+	 */
 	public CoinMachineUI(CoinMachine coinMachine) {
 		this.coinMachine = coinMachine;
 		this.setTitle("Coin Machine");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		initComponents();
 	}
-
+	
+	/**
+	 * Create components of the GUI.
+	 * Use anonymous class to add action listener to buttons.
+	 */
 	public void initComponents() {
 		upperPart = new JPanel();
 		lowerPart = new JPanel();
+
 		balanceLabel = new JLabel("Balance: 0");
 		statusLabel = new JLabel("Status: ");
+
 		progressBar = new JProgressBar(0, coinMachine.getCapacity());
 		progressBar.setForeground(Color.red);
 		progressBar.setValue(0);
 		progressBar.setStringPainted(true);
+
 		border = BorderFactory.createTitledBorder("Insert money");
 		border.setTitleJustification(TitledBorder.LEFT);
 		lowerPart.setBorder(border);
-		
+
 		ClassLoader loader = this.getClass().getClassLoader();
 		oneBahtURL = loader.getResource("images/1baht.png");
 		fiveBahtURL = loader.getResource("images/5baht.png");
 		tenBahtURL = loader.getResource("images/10baht.png");
-		
+
 		oneBahtPic = new ImageIcon(oneBahtURL);
 		fiveBahtPic = new ImageIcon(fiveBahtURL);
 		tenBahtPic = new ImageIcon(tenBahtURL);
-		
+
 		oneBahtButton = new JButton(oneBahtPic);
 		oneBahtButton.addActionListener(new ActionListener() {
 
@@ -87,7 +105,11 @@ public class CoinMachineUI extends JFrame implements Observer {
 		lowerPart.add(fiveBahtButton);
 		lowerPart.add(tenBahtButton);
 	}
-
+	
+	/**
+	 * Display current balance when a coin is successfully added.
+	 * Notified from CoinMachine object.
+	 */
 	public void update(Observable subject, Object info) {
 		if (info != null) {
 			CoinMachine coinMachine = (CoinMachine) subject;
@@ -97,6 +119,9 @@ public class CoinMachineUI extends JFrame implements Observer {
 		}
 	}
 
+	/**
+	 * Run this GUI
+	 */
 	public void run() {
 		setVisible(true);
 		pack();
