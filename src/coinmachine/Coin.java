@@ -1,8 +1,9 @@
 package coinmachine;
+
 /**
- * A Coin represents metalic money with a value.
+ * A Coin represents metallic money with a value.
  */
-public class Coin /*TODO implements Comparable<Coin> */ {
+public class Coin implements Comparable<Coin> {
 	/** value of the coin */
 	private final int value;
 	private final String currency;
@@ -61,9 +62,13 @@ public class Coin /*TODO implements Comparable<Coin> */ {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-//TODO Write a correct equals method for Coin.
-//     You can assume that the currency is never null.
-		return this == obj;
+		
+		if (obj instanceof Coin) {
+			if (((Coin) obj).getValue() == value && ((Coin) obj).getCurrency().equals(currency))
+				return true;
+		}
+		
+		return false;
 	}
 
 	/**
@@ -74,3 +79,4 @@ public class Coin /*TODO implements Comparable<Coin> */ {
 		return value+"-"+currency;
 	}
 }
+
