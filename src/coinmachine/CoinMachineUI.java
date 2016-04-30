@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 
 /**
  * Graphic user interface used to display the current balance in the coin machine,
- * display the amount of space left for inserting more coin.
+ * display the percentage of space left for inserting more coin using progress bar.
  * The buttons can be put to add a coin to the coin machine.
  * Observer of CoinMachine.
  * @author Nuttapong Rojanavanich
