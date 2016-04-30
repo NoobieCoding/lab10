@@ -50,7 +50,7 @@ public class CoinMachineUI extends JFrame implements Observer {
 		statusLabel = new JLabel("Status: ");
 
 		progressBar = new JProgressBar(0, coinMachine.getCapacity());
-		progressBar.setForeground(Color.red);
+		progressBar.setForeground(Color.blue);
 		progressBar.setValue(0);
 		progressBar.setStringPainted(true);
 
@@ -109,13 +109,21 @@ public class CoinMachineUI extends JFrame implements Observer {
 	/**
 	 * Display current balance when a coin is successfully added.
 	 * Notified from CoinMachine object.
+	 * When the coin is added, Progress bar increases and its color is changed respectively to 
+	 * the number of coins in the machine (if reach 50% change to orange, 100 % change to red).
 	 */
 	public void update(Observable subject, Object info) {
 		if (info != null) {
 			CoinMachine coinMachine = (CoinMachine) subject;
 			int balance = coinMachine.getBalance();
 			balanceLabel.setText("Balance: " + balance);
-			progressBar.setValue(coinMachine.getCount());
+			
+			int coinCount = coinMachine.getCount();
+			progressBar.setValue(coinCount);
+			if (coinCount == coinMachine.getCapacity())
+				progressBar.setForeground(Color.red);
+			else if (coinCount >= coinMachine.getCapacity() / 2)
+				progressBar.setForeground(Color.orange);
 		}
 	}
 
