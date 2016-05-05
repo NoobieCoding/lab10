@@ -75,13 +75,9 @@ public class CoinMachineUI extends JFrame implements Observer {
 		fiveBahtButton.putClientProperty(1, 5);
 		fiveBahtButton.addActionListener(new InsertCoinListener());
 
-
 		tenBahtButton = new JButton(tenBahtPic);
 		tenBahtButton.putClientProperty(1, 10);
 		tenBahtButton.addActionListener(new InsertCoinListener());
-
-
-		
 
 		setLayout(new BorderLayout());
 		add(upperPart, BorderLayout.NORTH);
@@ -97,7 +93,7 @@ public class CoinMachineUI extends JFrame implements Observer {
 	
 	/**
 	 * When the button is clicked, insert the coin into the coin machine 
-	 * depending on the value of the button
+	 * depending on the value of the button.
 	 * 
 	 * @author Nuttapong Rojanavanich
 	 */
