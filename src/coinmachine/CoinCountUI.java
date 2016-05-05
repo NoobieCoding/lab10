@@ -57,7 +57,6 @@ public class CoinCountUI extends JFrame implements Observer {
 	 * Show message to inform user that the machine if the number of coins reach the machine capacity.
 	 */
 	public void update(Observable subject, Object info) {
-		if (info != null) {
 			CoinMachine coinMachine = (CoinMachine) subject;
 
 			if (coinMachine.getCount() == coinMachine.getCapacity()) {
@@ -67,7 +66,6 @@ public class CoinCountUI extends JFrame implements Observer {
 
 			int numCoins = coinMachine.getCount();
 			coinsNumTextField.setText(String.valueOf(numCoins));
-		}
 	}
 	
 	/**

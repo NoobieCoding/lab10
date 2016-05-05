@@ -3,7 +3,7 @@ package coinmachine;
 /**
  * A Coin represents metallic money with a value.
  */
-public class Coin implements Comparable<Coin> {
+public class Coin  {
 	/** value of the coin */
 	private final int value;
 	private final String currency;

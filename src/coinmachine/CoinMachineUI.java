@@ -68,31 +68,20 @@ public class CoinMachineUI extends JFrame implements Observer {
 		tenBahtPic = new ImageIcon(tenBahtURL);
 
 		oneBahtButton = new JButton(oneBahtPic);
-		oneBahtButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				coinMachine.insert(new Coin(1));
-			}
-		});
+		oneBahtButton.putClientProperty(1, 1);
+		oneBahtButton.addActionListener(new InsertCoinListener());
 
 		fiveBahtButton = new JButton(fiveBahtPic);
-		fiveBahtButton.addActionListener(new ActionListener() {
+		fiveBahtButton.putClientProperty(1, 5);
+		fiveBahtButton.addActionListener(new InsertCoinListener());
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				coinMachine.insert(new Coin(5));
-			}
-		});
 
 		tenBahtButton = new JButton(tenBahtPic);
-		tenBahtButton.addActionListener(new ActionListener() {
+		tenBahtButton.putClientProperty(1, 10);
+		tenBahtButton.addActionListener(new InsertCoinListener());
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				coinMachine.insert(new Coin(10));
-			}
-		});
+
+		
 
 		setLayout(new BorderLayout());
 		add(upperPart, BorderLayout.NORTH);
@@ -107,13 +96,33 @@ public class CoinMachineUI extends JFrame implements Observer {
 	}
 	
 	/**
+	 * When the button is clicked, insert the coin into the coin machine 
+	 * depending on the value of the button
+	 * 
+	 * @author Nuttapong Rojanavanich
+	 */
+	class InsertCoinListener implements ActionListener{
+		
+		/**
+		 * Insert the coin when the button is clicked
+		 */
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			JComponent source = (JComponent) evt.getSource();
+			int amount = (int) source.getClientProperty(1);
+			coinMachine.insert(new Coin(amount));
+			
+		}
+		
+	}
+	
+	/**
 	 * Display current balance when a coin is successfully added.
 	 * Notified from CoinMachine object.
 	 * When the coin is added, Progress bar increases and its color is changed respectively to 
 	 * the number of coins in the machine (if reach 50% change to orange, 100 % change to red).
 	 */
 	public void update(Observable subject, Object info) {
-		if (info != null) {
 			CoinMachine coinMachine = (CoinMachine) subject;
 			int balance = coinMachine.getBalance();
 			balanceLabel.setText("Balance: " + balance);
@@ -124,7 +133,6 @@ public class CoinMachineUI extends JFrame implements Observer {
 				progressBar.setForeground(Color.red);
 			else if (coinCount >= coinMachine.getCapacity() / 2)
 				progressBar.setForeground(Color.orange);
-		}
 	}
 
 	/**
