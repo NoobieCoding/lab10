@@ -64,7 +64,8 @@ public class Coin  {
 	public boolean equals(Object obj) {
 		
 		if (obj instanceof Coin) {
-			if (((Coin) obj).getValue() == value && ((Coin) obj).getCurrency().equals(currency))
+			Coin coin = (Coin) obj;
+			if (coin.getValue() == value && coin.getCurrency().equals(currency))
 				return true;
 		}
 		
